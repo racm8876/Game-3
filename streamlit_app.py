@@ -16,7 +16,7 @@ if "board" not in st.session_state:
 def check_winner(board):
     winning_combinations = [
         [0, 1, 2], [3, 4, 5], [6, 7, 8],  # rows
-        [0, 3, 6], [1, 4, 7], [2, 5, 8],  # cols
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],  # columns
         [0, 4, 8], [2, 4, 6]              # diagonals
     ]
     for combo in winning_combinations:
@@ -33,7 +33,7 @@ def reset_game():
     st.session_state.turn = "X"
     st.session_state.winner = None
 
-# Game logic
+# Game grid
 cols = st.columns(3)
 for i in range(9):
     with cols[i % 3]:
@@ -42,7 +42,7 @@ for i in range(9):
                 st.session_state.board[i] = st.session_state.turn
                 st.session_state.winner = check_winner(st.session_state.board)
                 st.session_state.turn = "O" if st.session_state.turn == "X" else "X"
-            st.experimental_rerun()
+            st.rerun()  # ✅ fixed line
 
 # Show game status
 if st.session_state.winner:
